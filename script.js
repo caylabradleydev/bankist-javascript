@@ -61,34 +61,45 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+const displayMovements = function (movements) {
+  containerMovements.innerHTML = '';
 
-const displayMovements = function(movements) {
-  movements.forEach((element, index) => {
-    const type = element > 0 ? 'deposit' : 'withdrawal'
+  movements.forEach((element, i) => {
+    const type = element > 0 ? 'deposit' : 'withdrawal';
 
     const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${i + 1}</div>
         <div class="movements__date">3 days ago</div>
-        <div class="movements__value">${element}/div>
-      </div>
-    `;
+        <div class="movements__value">${element}</div>
+      </div>`;
 
-    containerMovements.insertAdjacentHTML('afterbegin', html)
+    containerMovements.insertAdjacentHTML('afterbegin', html);
   });
-}
-
-
+};
 displayMovements(account1.movements);
 
-const firstWithdrawal = movements.find(movement => movement < 0)
+const createUsernames = function (accounts) {
+  accounts.forEach(function (account) {
+    account.username = account.owner
+      .toLowerCase()
+      .split(' ')
+      .map(name => name[0])
+      .join('');
+  });
+};
 
-console.log(firstWithdrawal) //-400
+createUsernames(accounts);
+console.log(accounts);
 
-const account = accounts.find(account => account.owner = 'Jessica Davis')
+// const firstWithdrawal = movements.find(movement => movement < 0);
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300]
-console.log(movements.sort())
+// console.log(firstWithdrawal); //-400
 
-const x = new Array(7);
-x.fill(1, 3)// starts at index 3 and fills it
+// const account = accounts.find(account => (account.owner = 'Jessica Davis'));
+
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// console.log(movements.sort());
+
+// const x = new Array(7);
+// x.fill(1, 3); // starts at index 3 and fills it
