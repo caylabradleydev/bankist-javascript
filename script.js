@@ -101,6 +101,8 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+const locale = navigator.language;
+
 const formatMovementDate = function (date) {
   const calcDaysPassed = (date1, date2) =>
     Math.round(Math.abs(date1 - date2) / (1000 * 60 * 60 * 24));
@@ -111,10 +113,19 @@ const formatMovementDate = function (date) {
   if (daysPassed === 1) return 'Yesterday';
   if (daysPassed <= 7) return `${daysPassed} days ago`;
   else {
-    const day = `${date.getDate()}`.padStart(2, 0);
-    const month = `${date.getMonth()}`.padStart(2, 0);
-    const year = date.getFullYear();
-    return `${month}/${day}/${year}`;
+    const options = {
+      year: 'numeric',
+      month: 'short',
+      day: '2-digit',
+      hour: 'numeric',
+      minute: 'numeric',
+    };
+
+    return new Intl.DateTimeFormat(locale, options).format(date);
+    // const day = `${date.getDate()}`.padStart(2, 0);
+    // const month = `${date.getMonth()}`.padStart(2, 0);
+    // const year = date.getFullYear();
+    // return `${month}/${day}/${year}`;
   }
 };
 
@@ -208,14 +219,27 @@ btnLogin.addEventListener('click', function (e) {
     containerApp.style.opacity = 100;
 
     const now = new Date();
+    const options = {
+      year: 'numeric',
+      month: 'long',
+      day: '2-digit',
+      hour: 'numeric',
+      minute: 'numeric',
+    };
 
-    const day = `${now.getDate()}`.padStart(2, 0);
-    const month = `${now.getMonth() + 1}`.padStart(2, 0);
-    const year = now.getFullYear();
-    const hour = `${now.getHours()}`.padStart(2, 0);
-    const minute = `${now.getMinutes()}`.padStart(2, 0);
+    labelDate.textContent = new Intl.DateTimeFormat(locale, options).format(
+      now
+    );
 
-    labelDate.textContent = `${month}/${day}/${year} ${hour}:${minute}`;
+    // const now = new Date();
+
+    // const day = `${now.getDate()}`.padStart(2, 0);
+    // const month = `${now.getMonth() + 1}`.padStart(2, 0);
+    // const year = now.getFullYear();
+    // const hour = `${now.getHours()}`.padStart(2, 0);
+    // const minute = `${now.getMinutes()}`.padStart(2, 0);
+
+    // labelDate.textContent = `${month}/${day}/${year} ${hour}:${minute}`;
 
     inputLoginPin.value = inputLoginUsername.value = '';
 
