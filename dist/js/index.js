@@ -62,14 +62,14 @@ tabsContainer.addEventListener('click', function (e) {
   tabs.forEach(tab => tab.classList.remove('operations__tab--active'));
   btnClicked.classList.add('operations__tab--active');
 
-  tabsContent.forEach(c => t.classList.remove('operations__content--active'));
+  tabsContent.forEach(c => c.classList.remove('operations__content--active'));
 
   document
     .querySelector(`.operations__content--${btnClicked.dataset.tab}`)
     .classList.add('operations__content--active');
 });
 
-const handleNavHover = function (e, opacity) {
+const handleNavHover = function (e) {
   if (e.target.classList.contains('nav__link')) {
     const link = e.target;
     const siblings = link.closest('.nav').querySelectorAll('.nav__link');
